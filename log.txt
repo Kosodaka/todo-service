@@ -1,1 +1,5 @@
 {"level":"fatal","time":"2023-10-19T19:18:02+05:00","message":"failed to initialize db"}
+{"level":"fatal","time":"2023-10-21T15:44:37+05:00","message":"error while running http server"}
+{"level":"fatal","time":"2023-10-21T15:44:59+05:00","message":"error while running http server"}
+{"level":"fatal","time":"2023-10-21T15:46:49+05:00","message":"error while running http server"}
+{"level":"fatal","time":"2023-10-21T15:47:59+05:00","message":"error while running http server"}

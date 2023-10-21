@@ -1,8 +1,14 @@
 package repository
 
-import "github.com/uptrace/bun"
+import (
+	"github.com/Kosodaka/todo-service/internal/models"
+	"github.com/gin-gonic/gin"
+	"github.com/uptrace/bun"
+)
 
 type Authorization interface {
+	CreateUser(c *gin.Context, user models.User) (int, error)
+	GetUser(c *gin.Context, username, password string) (models.User, error)
 }
 
 type TodoItem interface {
@@ -14,5 +20,7 @@ type Repository struct {
 }
 
 func NewRepository(db *bun.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Authorization: NewAuthPostgres(db),
+	}
 }
