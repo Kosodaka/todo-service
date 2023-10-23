@@ -13,6 +13,11 @@ type Authorization interface {
 }
 
 type TodoItem interface {
+	Create(c *gin.Context, userId int, item models.TodoItem) (int, error)
+	GetAll(c *gin.Context, userId int) ([]models.TodoItem, error)
+	GetById(c *gin.Context, userId, itemId int) (models.TodoItem, error)
+	Delete(userId, itemId int) error
+	Update(c *gin.Context, userId, itemId int, input models.UpdateItemInput) error
 }
 
 type Service struct {
@@ -23,5 +28,6 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		TodoItem:      NewTodoItemService(repos.TodoItem),
 	}
 }
