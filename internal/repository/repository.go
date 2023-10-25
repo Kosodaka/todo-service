@@ -12,6 +12,11 @@ type Authorization interface {
 }
 
 type TodoItem interface {
+	Create(c *gin.Context, userId int, item models.TodoItem) (int, error)
+	GetAll(c *gin.Context, userId int) ([]models.TodoItem, error)
+	GetById(c *gin.Context, userId, itemId int) (models.TodoItem, error)
+	Delete(userId, itemId int) error
+	Update(c *gin.Context, userId, itemId int, input models.UpdateItemInput) error
 }
 
 type Repository struct {
@@ -22,5 +27,6 @@ type Repository struct {
 func NewRepository(db *bun.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		TodoItem:      NewTodoItemPostgres(db),
 	}
 }

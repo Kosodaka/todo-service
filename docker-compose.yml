@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  todo-service:
+    build: ./
+    command: ./wait-for-postgres.sh db ./todo-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DB_PASSWORD=root
+
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5432:5432

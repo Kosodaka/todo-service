@@ -77,6 +77,10 @@ func (r *TodoItemPostgres) Update(c *gin.Context, userId, itemId int, input mode
 		setValues = append(setValues, fmt.Sprintf("description=?"))
 		args = append(args, *input.Description)
 	}
+	if input.Done != nil {
+		setValues = append(setValues, fmt.Sprintf("done=?"))
+		args = append(args, *input.Done)
+	}
 	setQuery := strings.Join(setValues, ", ")
 	query := fmt.Sprintf("UPDATE %s ti SET %s FROM %s ui WHERE ti.id = ui.item_id AND ui.item_id=? AND ui.user_id=?",
 		todoItemTable, setQuery, usersItemsTable)
